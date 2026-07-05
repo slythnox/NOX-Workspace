@@ -93,8 +93,6 @@ export default function LandingPage() {
             </p>
             <div className="flex justify-center md:justify-start gap-4 pt-1 text-[10px] font-mono text-zinc-500">
               <a href="https://github.com/slythnox" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 transition-colors">github.com/slythnox</a>
-              <span>•</span>
-              <a href="https://github.com/slythnox/OnyxUi" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 transition-colors">github.com/slythnox/OnyxUi</a>
             </div>
           </div>
         </div>

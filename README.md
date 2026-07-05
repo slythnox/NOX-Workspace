@@ -11,7 +11,7 @@
   </p>
 
   <div>
-    <a href="https://github.com/slythnox/OnyxUi/blob/main/LICENSE">
+    <a href="https://github.com/slythnox/NOX-Workspace/blob/main/LICENSE">
       <img src="https://img.shields.io/badge/License-MIT-7c3aed?style=flat-square" alt="License MIT" />
     </a>
     <a href="https://react.dev">
@@ -155,8 +155,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/slythnox/OnyxUi.git
-cd OnyxUi
+git clone https://github.com/slythnox/NOX-Workspace.git
+cd NOX-Workspace
 
 # Install dependencies
 npm install

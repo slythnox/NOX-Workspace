@@ -16,13 +16,13 @@
   ],
   "author": "slythnox",
   "license": "MIT",
-  "homepage": "https://slythnox.github.io/OnyxUi/",
+  "homepage": "https://slythnox.github.io/NOX-Workspace/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/slythnox/OnyxUi.git"
+    "url": "https://github.com/slythnox/NOX-Workspace.git"
   },
   "bugs": {
-    "url": "https://github.com/slythnox/OnyxUi/issues"
+    "url": "https://github.com/slythnox/NOX-Workspace/issues"
   },
   "scripts": {
     "dev": "vite",
