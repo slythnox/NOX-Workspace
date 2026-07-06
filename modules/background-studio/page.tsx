@@ -586,54 +586,40 @@ export default function BackgroundStudio() {
         {showHeroOverlay && (
           <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8 z-[2] pointer-events-none select-none text-white">
             {/* Header Navbar */}
-            <div className="w-full max-w-4xl mx-auto flex items-center justify-between bg-zinc-950/40 border border-zinc-800/50 backdrop-blur-md rounded-2xl px-5 py-3 pointer-events-auto select-none">
-              {/* Logo */}
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-zinc-200 animate-spin-slow shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <ellipse cx="50" cy="50" rx="15" ry="40" stroke="currentColor" strokeWidth="6" transform="rotate(30 50 50)" />
-                  <ellipse cx="50" cy="50" rx="15" ry="40" stroke="currentColor" strokeWidth="6" transform="rotate(90 50 50)" />
-                  <ellipse cx="50" cy="50" rx="15" ry="40" stroke="currentColor" strokeWidth="6" transform="rotate(150 50 50)" />
-                  <circle cx="50" cy="50" r="6" fill="currentColor" />
+            <div className="w-full max-w-4xl mx-auto flex items-center justify-between bg-zinc-950/80 border border-zinc-800/80 backdrop-blur-md rounded-lg h-12 px-4 pointer-events-auto select-none">
+              {/* Logo & Navigation */}
+              <div className="flex items-center gap-4">
+                <span className="font-mono text-sm font-bold tracking-widest text-white uppercase">
+                  ONYX
+                </span>
+                <div className="w-px h-4 bg-zinc-800" />
+                <nav className="flex items-center gap-1.5">
+                  <span className="text-xs font-mono px-2.5 py-1 rounded text-white bg-zinc-900">Home</span>
+                  <span className="text-xs font-mono px-2.5 py-1 rounded text-zinc-400">Tools</span>
+                </nav>
+              </div>
+              
+              {/* Github Link */}
+              <div className="flex items-center">
+                <svg className="w-4 h-4 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
                 </svg>
-                <span className="font-sans font-bold tracking-tight text-sm text-white">React Bits</span>
-              </div>
-              
-              {/* Menu Links */}
-              <div className="hidden sm:flex items-center gap-6">
-                <a href="#features" className="text-xs text-zinc-400 hover:text-white transition-colors">Features</a>
-                <a href="#about" className="text-xs text-zinc-400 hover:text-white transition-colors">About</a>
-              </div>
-              
-              {/* Action Button */}
-              <div>
-                <button className="px-4 py-1.5 bg-white text-black hover:bg-zinc-200 text-xs font-semibold rounded-full transition-all duration-150">
-                  Sign up
-                </button>
               </div>
             </div>
 
             {/* Hero Main Content */}
             <div className="w-full max-w-2xl mx-auto text-center my-auto flex flex-col items-center justify-center pointer-events-auto mt-16 sm:mt-0">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800/60 bg-zinc-950/40 backdrop-blur-sm text-[11px] mb-6">
-                <span className="bg-white text-black text-[9px] font-extrabold px-1.5 py-0.5 rounded-full leading-none">NEW</span>
-                <span className="text-zinc-350">Just shipped v2.0</span>
-              </div>
-              
               {/* Headline */}
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-8 font-sans max-w-xl sm:max-w-2xl">
-                You have the power to reshape your own destiny
+              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1] max-w-3xl mb-6 text-white text-center font-sans">
+                Your shortcut to everything.
               </h1>
               
-              {/* CTA Buttons */}
-              <div className="flex items-center gap-3.5 justify-center">
-                <button className="px-6 py-2.5 bg-white text-black font-semibold rounded-full hover:bg-zinc-200 transition-colors text-xs sm:text-sm">
-                  Get started
-                </button>
-                <button className="px-6 py-2.5 bg-violet-600/30 hover:bg-violet-650/45 text-white font-semibold rounded-full border border-violet-500/50 backdrop-blur-sm transition-all text-xs sm:text-sm shadow-lg shadow-violet-950/20">
-                  Learn more
-                </button>
-              </div>
+              {/* Subtitle */}
+              <p className="text-xs sm:text-sm text-zinc-400 max-w-lg leading-relaxed text-center font-sans">
+                A collection of powerful developer tools all within an extendable workspace.
+                <br />
+                Fast, local and reliable.
+              </p>
             </div>
 
             {/* Spacer */}

@@ -9,12 +9,12 @@ export default function AppLayout() {
   const isToolPage = location.pathname.startsWith('/tools');
 
   return (
-    <div className="min-h-screen flex flex-col bg-black text-zinc-100 selection:bg-zinc-800 selection:text-white">
+    <div className={cn("min-h-screen flex flex-col bg-black text-zinc-100 selection:bg-zinc-800 selection:text-white", isToolPage && "h-screen overflow-hidden")}>
       {/* Floating Navbar */}
       {!isToolPage && <Navbar />}
 
       {/* Main Content Area */}
-      <main className={cn('flex-1 flex flex-col', !isToolPage && 'pt-20')}>
+      <main className={cn('flex-1 flex flex-col min-h-0', !isToolPage && 'pt-20')}>
         <Outlet />
       </main>
 
