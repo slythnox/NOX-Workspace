@@ -586,7 +586,7 @@ export default function BackgroundStudio() {
         {showHeroOverlay && (
           <div className="absolute inset-0 flex flex-col p-6 md:p-8 z-[2] pointer-events-none select-none text-white">
             {/* Header Navbar */}
-            <div className="w-full max-w-4xl mx-auto flex items-center justify-between bg-zinc-950/80 border border-zinc-800/80 backdrop-blur-md rounded-lg h-12 px-4 pointer-events-auto select-none shrink-0 mb-4">
+            <div className="w-full max-w-4xl mx-auto flex items-center justify-between bg-zinc-950/80 border border-zinc-800/80 backdrop-blur-md rounded-lg h-12 px-4 pointer-events-none select-none shrink-0 mb-4">
               {/* Logo & Navigation */}
               <div className="flex items-center gap-4">
                 <span className="font-mono text-sm font-bold tracking-widest text-white uppercase">
@@ -608,7 +608,7 @@ export default function BackgroundStudio() {
             </div>
 
             {/* Hero Main Content */}
-            <div className="flex-1 flex flex-col items-center justify-center pointer-events-auto max-w-2xl mx-auto text-center">
+            <div className="flex-1 flex flex-col items-center justify-center pointer-events-none max-w-2xl mx-auto text-center">
               {/* Headline */}
               <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1] max-w-3xl mb-6 text-white text-center font-sans">
                 Your shortcut to everything.

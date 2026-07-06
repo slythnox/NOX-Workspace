@@ -304,7 +304,7 @@ void main() {
         uniforms.iMouse.value = [x, y];
       }
     };
-    canvas.addEventListener('pointermove', onPointerMove);
+    container.addEventListener('pointermove', onPointerMove);
 
     const startTime = performance.now();
 
@@ -353,7 +353,7 @@ void main() {
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      canvas.removeEventListener('pointermove', onPointerMove);
+      container.removeEventListener('pointermove', onPointerMove);
       ro.disconnect();
       if (canvas.parentElement === container) {
         container.removeChild(canvas);
