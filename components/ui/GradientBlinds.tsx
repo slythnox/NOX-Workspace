@@ -67,6 +67,7 @@ const GradientBlinds: React.FC<GradientBlindsProps> = ({
   const lastTimeRef = useRef<number>(0);
   const firstResizeRef = useRef<boolean>(true);
   const hasInteractedRef = useRef<boolean>(false);
+  const uniformsRef = useRef<any>(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -255,6 +256,7 @@ void main() {
       uColor7: { value: colorArr[7] },
       uColorCount: { value: colorCount }
     };
+    uniformsRef.current = uniforms;
 
     const program = new Program(gl, {
       vertex,
@@ -372,21 +374,43 @@ void main() {
       meshRef.current = null;
       rendererRef.current = null;
     };
+  }, [dpr, paused]);
+
+  // Dynamic Uniform updates to prevent canvas rebuilds and lagging interaction
+  useEffect(() => {
+    if (!uniformsRef.current) return;
+    const uniforms = uniformsRef.current;
+    uniforms.uAngle.value = (angle * Math.PI) / 180;
+    uniforms.uNoise.value = noise;
+    uniforms.uBlindCount.value = Math.max(1, blindCount);
+    uniforms.uSpotlightRadius.value = spotlightRadius;
+    uniforms.uSpotlightSoftness.value = spotlightSoftness;
+    uniforms.uSpotlightOpacity.value = spotlightOpacity;
+    uniforms.uMirror.value = mirrorGradient ? 1 : 0;
+    uniforms.uDistort.value = distortAmount;
+    uniforms.uShineFlip.value = shineDirection === 'right' ? 1 : 0;
+
+    const { arr: colorArr, count: colorCount } = prepStops(gradientColors);
+    uniforms.uColorCount.value = colorCount;
+    uniforms.uColor0.value = colorArr[0];
+    uniforms.uColor1.value = colorArr[1];
+    uniforms.uColor2.value = colorArr[2];
+    uniforms.uColor3.value = colorArr[3];
+    uniforms.uColor4.value = colorArr[4];
+    uniforms.uColor5.value = colorArr[5];
+    uniforms.uColor6.value = colorArr[6];
+    uniforms.uColor7.value = colorArr[7];
   }, [
-    dpr,
-    paused,
-    gradientColors,
     angle,
     noise,
     blindCount,
-    blindMinWidth,
-    mouseDampening,
-    mirrorGradient,
     spotlightRadius,
     spotlightSoftness,
     spotlightOpacity,
+    mirrorGradient,
     distortAmount,
-    shineDirection
+    shineDirection,
+    gradientColors
   ]);
 
   return (

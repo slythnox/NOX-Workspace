@@ -27,13 +27,39 @@ export const ParticleBurst: React.FC<ParticleBurstProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<any[]>([]);
   const mouseRef = useRef<{ x: number; y: number }>({ x: -1000, y: -1000 });
+
+  // Cache slider props in a ref to prevent recreation of particles and event listeners
+  const propsRef = useRef({
+    canvasBg, magnetRadius, ringRadius, waveSpeed, waveAmplitude,
+    particleSize, lerpSpeed, color, autoAnimate, rotationSpeed,
+    depthFactor, pulseSpeed, particleShape, fieldStrength
+  });
+
+  useEffect(() => {
+    propsRef.current = {
+      canvasBg, magnetRadius, ringRadius, waveSpeed, waveAmplitude,
+      particleSize, lerpSpeed, color, autoAnimate, rotationSpeed,
+      depthFactor, pulseSpeed, particleShape, fieldStrength
+    };
+  }, [canvasBg, magnetRadius, ringRadius, waveSpeed, waveAmplitude, particleSize, lerpSpeed, color, autoAnimate, rotationSpeed, depthFactor, pulseSpeed, particleShape, fieldStrength]);
+
   useEffect(() => {
     const canvas = canvasRef.current; if (!canvas) return;
     const ctx = canvas.getContext('2d'); if (!ctx) return;
     let animationId: number;
     const initParticles = () => {
       const arr = []; const voidRad = ringRadius * 12;
-      for (let i = 0; i < particleCount; i++) { const angle = (i/particleCount)*Math.PI*2 + Math.random()*0.1; arr.push({ angle, dist: voidRad + Math.random()*Math.max(canvas.width,canvas.height)*0.5, speed: 0.8+Math.random()*2, opacity: 0.15+Math.random()*0.8, variance: 0.5+Math.random()*particleVariance, sizeOffset: Math.random()*1.5 }); }
+      for (let i = 0; i < particleCount; i++) { 
+        const angle = (i/particleCount)*Math.PI*2 + Math.random()*0.1; 
+        arr.push({ 
+          angle, 
+          dist: voidRad + Math.random()*Math.max(canvas.width,canvas.height)*0.5, 
+          speed: 0.8+Math.random()*2, 
+          opacity: 0.15+Math.random()*0.8, 
+          variance: 0.5+Math.random()*particleVariance, 
+          sizeOffset: Math.random()*1.5 
+        }); 
+      }
       particlesRef.current = arr;
     };
     const resize = () => { canvas.width = canvas.parentElement?.clientWidth||window.innerWidth; canvas.height = canvas.parentElement?.clientHeight||window.innerHeight; initParticles(); };
@@ -42,8 +68,20 @@ export const ParticleBurst: React.FC<ParticleBurstProps> = ({
     window.addEventListener('mousemove', onMouseMove);
     let tick = 0;
     const render = () => {
-      tick++; ctx.fillStyle = canvasBg; ctx.fillRect(0,0,canvas.width,canvas.height);
-      const cx = canvas.width/2; const cy = canvas.height/2; const mx = mouseRef.current.x; const my = mouseRef.current.y; const voidRad = ringRadius*12;
+      tick++; 
+      const {
+        canvasBg, magnetRadius, ringRadius, waveSpeed, waveAmplitude,
+        particleSize, lerpSpeed, color, autoAnimate, rotationSpeed,
+        depthFactor, pulseSpeed, particleShape, fieldStrength
+      } = propsRef.current;
+
+      ctx.fillStyle = canvasBg; 
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      const cx = canvas.width/2; 
+      const cy = canvas.height/2; 
+      const mx = mouseRef.current.x; 
+      const my = mouseRef.current.y; 
+      const voidRad = ringRadius*12;
       particlesRef.current.forEach(p => {
         if (autoAnimate) { p.angle += rotationSpeed*0.003; p.dist += p.speed*waveSpeed*2.5; if (p.dist > Math.max(canvas.width,canvas.height)*0.8) p.dist = voidRad+Math.random()*20; }
         const pulse = 1 + Math.sin(tick*pulseSpeed*0.02)*0.15; const currentSize = (particleSize+p.sizeOffset)*pulse*p.variance;
@@ -64,7 +102,7 @@ export const ParticleBurst: React.FC<ParticleBurstProps> = ({
     };
     render();
     return () => { cancelAnimationFrame(animationId); window.removeEventListener('resize',resize); window.removeEventListener('mousemove',onMouseMove); };
-  }, [canvasBg, particleCount, magnetRadius, ringRadius, waveSpeed, waveAmplitude, particleSize, lerpSpeed, color, autoAnimate, particleVariance, rotationSpeed, depthFactor, pulseSpeed, particleShape, fieldStrength]);
+  }, [particleCount, particleVariance]);
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />;
 };
 

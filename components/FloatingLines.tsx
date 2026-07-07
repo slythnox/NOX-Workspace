@@ -277,6 +277,7 @@ export default function FloatingLines({
   const currentInfluenceRef = useRef<number>(0);
   const targetParallaxRef = useRef<Vector2>(new Vector2(0, 0));
   const currentParallaxRef = useRef<Vector2>(new Vector2(0, 0));
+  const uniformsRef = useRef<any>(null);
 
   const getLineCount = (waveType: 'top' | 'middle' | 'bottom'): number => {
     if (typeof lineCount === 'number') return lineCount;
@@ -377,6 +378,8 @@ export default function FloatingLines({
         uniforms.lineGradient.value[i].set(color.x, color.y, color.z);
       });
     }
+
+    uniformsRef.current = uniforms;
 
     const material = new ShaderMaterial({
       uniforms,
@@ -485,21 +488,67 @@ export default function FloatingLines({
         renderer.domElement.parentElement.removeChild(renderer.domElement);
       }
     };
+  }, [interactive]);
+
+  // Dynamic Uniform updates to prevent Three.js context recreation and stutter
+  useEffect(() => {
+    if (!uniformsRef.current) return;
+    const u = uniformsRef.current;
+    u.animationSpeed.value = animationSpeed;
+    u.enableTop.value = enabledWaves.includes('top');
+    u.enableMiddle.value = enabledWaves.includes('middle');
+    u.enableBottom.value = enabledWaves.includes('bottom');
+    u.topLineCount.value = topLineCount;
+    u.middleLineCount.value = middleLineCount;
+    u.bottomLineCount.value = bottomLineCount;
+    u.topLineDistance.value = topLineDistance;
+    u.middleLineDistance.value = middleLineDistance;
+    u.bottomLineDistance.value = bottomLineDistance;
+
+    if (topWavePosition) {
+      u.topWavePosition.value.set(topWavePosition.x ?? 10.0, topWavePosition.y ?? 0.5, topWavePosition.rotate ?? -0.4);
+    }
+    if (middleWavePosition) {
+      u.middleWavePosition.value.set(middleWavePosition.x ?? 5.0, middleWavePosition.y ?? 0.0, middleWavePosition.rotate ?? 0.2);
+    }
+    if (bottomWavePosition) {
+      u.bottomWavePosition.value.set(bottomWavePosition.x ?? 2.0, bottomWavePosition.y ?? -0.7, bottomWavePosition.rotate ?? -1.0);
+    }
+
+    u.bendRadius.value = bendRadius;
+    u.bendStrength.value = bendStrength;
+    u.mouseDamping.value = mouseDamping;
+    u.parallax.value = parallax;
+    u.parallaxStrength.value = parallaxStrength;
+
+    if (linesGradient && linesGradient.length > 0) {
+      const stops = linesGradient.slice(0, MAX_GRADIENT_STOPS);
+      u.lineGradientCount.value = stops.length;
+      stops.forEach((hex, i) => {
+        const color = hexToVec3(hex);
+        u.lineGradient.value[i].set(color.x, color.y, color.z);
+      });
+    } else {
+      u.lineGradientCount.value = 0;
+    }
   }, [
-    linesGradient,
+    animationSpeed,
     enabledWaves,
-    lineCount,
-    lineDistance,
+    topLineCount,
+    middleLineCount,
+    bottomLineCount,
+    topLineDistance,
+    middleLineDistance,
+    bottomLineDistance,
     topWavePosition,
     middleWavePosition,
     bottomWavePosition,
-    animationSpeed,
-    interactive,
     bendRadius,
     bendStrength,
     mouseDamping,
     parallax,
-    parallaxStrength
+    parallaxStrength,
+    linesGradient
   ]);
 
   return (

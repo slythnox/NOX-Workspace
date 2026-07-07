@@ -1524,7 +1524,6 @@ export default function ${activeConfig.name.replace(/\s+/g, '')}({
           <div className="flex flex-col gap-1.5 mt-2">
             {ANIMATIONS.map(anim => {
               const isActive = anim.id === activeAnimId;
-              const isLiked = liked[anim.id];
               return (
                 <button
                   key={anim.id}
@@ -1546,7 +1545,6 @@ export default function ${activeConfig.name.replace(/\s+/g, '')}({
                     />
                     <span className="text-[11px] font-semibold tracking-wide">{anim.name}</span>
                   </div>
-                  {isLiked && <Heart className="w-3 h-3 text-red-500 fill-red-500" />}
                 </button>
               );
             })}
@@ -1607,21 +1605,6 @@ export default function ${activeConfig.name.replace(/\s+/g, '')}({
                 className="p-2 border border-zinc-900 hover:border-zinc-800 bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-200 rounded-md cursor-pointer transition-colors"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-              </button>
-              <button
-                onClick={handleToggleLike}
-                title="Add to favorites"
-                className="p-2 border border-zinc-900 hover:border-zinc-800 bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-200 rounded-md cursor-pointer transition-colors"
-              >
-                <Heart className={cn("w-3.5 h-3.5 transition-colors", liked[activeAnimId] ? "text-red-500 fill-red-500" : "")} />
-              </button>
-              <button
-                onClick={handleCopyCode}
-                title="Copy snippet"
-                className="flex items-center gap-1.5 px-3.5 py-2 border border-zinc-900 hover:border-zinc-800 bg-zinc-950 hover:bg-zinc-900 text-[10px] font-mono text-zinc-300 hover:text-white rounded-md cursor-pointer transition-colors"
-              >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copied ? 'Copied' : 'Copy Code'}</span>
               </button>
             </div>
           </div>
