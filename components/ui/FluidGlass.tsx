@@ -29,9 +29,16 @@ interface FluidGlassProps {
   lensProps?: ModeProps;
   barProps?: ModeProps;
   cubeProps?: ModeProps;
+  bgColor?: string;
 }
 
-export default function FluidGlass({ mode = 'lens', lensProps = {}, barProps = {}, cubeProps = {} }: FluidGlassProps) {
+export default function FluidGlass({
+  mode = 'lens',
+  lensProps = {},
+  barProps = {},
+  cubeProps = {},
+  bgColor = '#09090b'
+}: FluidGlassProps) {
   const Wrapper = mode === 'bar' ? Bar : mode === 'cube' ? Cube : Lens;
   const rawOverrides = mode === 'bar' ? barProps : mode === 'cube' ? cubeProps : lensProps;
 
@@ -48,7 +55,7 @@ export default function FluidGlass({ mode = 'lens', lensProps = {}, barProps = {
     <Canvas camera={{ position: [0, 0, 20], fov: 15 }} gl={{ alpha: true }}>
       <ScrollControls damping={0.2} pages={3} distance={0.4}>
         {mode === 'bar' && <NavItems items={navItems as NavItem[]} />}
-        <Wrapper modeProps={modeProps}>
+        <Wrapper modeProps={modeProps} bgColor={bgColor}>
           <Scroll>
             <Typography />
             <Images />
@@ -70,6 +77,7 @@ interface ModeWrapperProps extends MeshProps {
   lockToBottom?: boolean;
   followPointer?: boolean;
   modeProps?: ModeProps;
+  bgColor?: string;
 }
 
 interface ZoomMaterial extends THREE.Material {
@@ -87,6 +95,7 @@ const ModeWrapper = memo(function ModeWrapper({
   lockToBottom = false,
   followPointer = true,
   modeProps = {},
+  bgColor = '#09090b',
   ...props
 }: ModeWrapperProps) {
   const ref = useRef<THREE.Mesh>(null!);
@@ -121,7 +130,7 @@ const ModeWrapper = memo(function ModeWrapper({
     gl.setRenderTarget(buffer);
     gl.render(scene, camera);
     gl.setRenderTarget(null);
-    gl.setClearColor(0x5227ff, 1);
+    gl.setClearColor(new THREE.Color(bgColor), 1);
   });
 
   const { scale, ior, thickness, anisotropy, chromaticAberration, ...extraMat } = modeProps as {
@@ -160,15 +169,15 @@ const ModeWrapper = memo(function ModeWrapper({
   );
 });
 
-function Lens({ modeProps, ...p }: { modeProps?: ModeProps } & MeshProps) {
-  return <ModeWrapper glb="/assets/3d/lens.glb" geometryKey="Cylinder" followPointer modeProps={modeProps} {...p} />;
+function Lens({ modeProps, bgColor, ...p }: { modeProps?: ModeProps; bgColor?: string } & MeshProps) {
+  return <ModeWrapper glb="/assets/3d/lens.glb" geometryKey="Cylinder" followPointer modeProps={modeProps} bgColor={bgColor} {...p} />;
 }
 
-function Cube({ modeProps, ...p }: { modeProps?: ModeProps } & MeshProps) {
-  return <ModeWrapper glb="/assets/3d/cube.glb" geometryKey="Cube" followPointer modeProps={modeProps} {...p} />;
+function Cube({ modeProps, bgColor, ...p }: { modeProps?: ModeProps; bgColor?: string } & MeshProps) {
+  return <ModeWrapper glb="/assets/3d/cube.glb" geometryKey="Cube" followPointer modeProps={modeProps} bgColor={bgColor} {...p} />;
 }
 
-function Bar({ modeProps = {}, ...p }: { modeProps?: ModeProps } & MeshProps) {
+function Bar({ modeProps = {}, bgColor, ...p }: { modeProps?: ModeProps; bgColor?: string } & MeshProps) {
   const defaultMat = {
     transmission: 1,
     roughness: 0,
@@ -186,6 +195,7 @@ function Bar({ modeProps = {}, ...p }: { modeProps?: ModeProps } & MeshProps) {
       lockToBottom
       followPointer={false}
       modeProps={{ ...defaultMat, ...modeProps }}
+      bgColor={bgColor}
       {...p}
     />
   );

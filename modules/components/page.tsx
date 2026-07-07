@@ -127,6 +127,7 @@ const COMPONENTS: ComponentConfig[] = [
     description: 'Immersive 3D liquid glass morphic refraction effect (uses Three.js & Fiber).',
     controls: [
       { id: 'mode', label: 'Display Mode', type: 'select', default: 'lens', options: ['lens', 'cube', 'bar'] },
+      { id: 'bgColor', label: 'Background Color', type: 'color', default: '#09090b' },
       { id: 'scale', label: 'Material Scale', type: 'slider', default: 0.25, min: 0.05, max: 0.5, step: 0.05 },
       { id: 'ior', label: 'Index of Refraction (ior)', type: 'slider', default: 1.15, min: 0.8, max: 2.0, step: 0.05 },
       { id: 'thickness', label: 'Transmission Thickness', type: 'slider', default: 5, min: 0.5, max: 15, step: 0.5 },
@@ -372,6 +373,7 @@ export default function Demo() {
     <div style={{ height: '600px', position: 'relative' }}>
       <FluidGlass 
         mode="${controlValues.mode || 'lens'}"
+        bgColor="${controlValues.bgColor || '#09090b'}"
         lensProps={{
           scale: ${controlValues.scale ?? 0.25},
           ior: ${controlValues.ior ?? 1.15},
@@ -1492,9 +1494,16 @@ interface FluidGlassProps {
   lensProps?: ModeProps;
   barProps?: ModeProps;
   cubeProps?: ModeProps;
+  bgColor?: string;
 }
 
-export default function FluidGlass({ mode = 'lens', lensProps = {}, barProps = {}, cubeProps = {} }: FluidGlassProps) {
+export default function FluidGlass({
+  mode = 'lens',
+  lensProps = {},
+  barProps = {},
+  cubeProps = {},
+  bgColor = '#09090b'
+}: FluidGlassProps) {
   const Wrapper = mode === 'bar' ? Bar : mode === 'cube' ? Cube : Lens;
   const rawOverrides = mode === 'bar' ? barProps : mode === 'cube' ? cubeProps : lensProps;
 
@@ -1511,7 +1520,7 @@ export default function FluidGlass({ mode = 'lens', lensProps = {}, barProps = {
     <Canvas camera={{ position: [0, 0, 20], fov: 15 }} gl={{ alpha: true }}>
       <ScrollControls damping={0.2} pages={3} distance={0.4}>
         {mode === 'bar' && <NavItems items={navItems as NavItem[]} />}
-        <Wrapper modeProps={modeProps}>
+        <Wrapper modeProps={modeProps} bgColor={bgColor}>
           <Scroll>
             <Typography />
             <Images />
@@ -1533,6 +1542,7 @@ interface ModeWrapperProps extends MeshProps {
   lockToBottom?: boolean;
   followPointer?: boolean;
   modeProps?: ModeProps;
+  bgColor?: string;
 }
 
 interface ZoomMaterial extends THREE.Material {
@@ -1550,6 +1560,7 @@ const ModeWrapper = memo(function ModeWrapper({
   lockToBottom = false,
   followPointer = true,
   modeProps = {},
+  bgColor = '#09090b',
   ...props
 }: ModeWrapperProps) {
   const ref = useRef<THREE.Mesh>(null!);
@@ -1584,7 +1595,7 @@ const ModeWrapper = memo(function ModeWrapper({
     gl.setRenderTarget(buffer);
     gl.render(scene, camera);
     gl.setRenderTarget(null);
-    gl.setClearColor(0x5227ff, 1);
+    gl.setClearColor(new THREE.Color(bgColor), 1);
   });
 
   const { scale, ior, thickness, anisotropy, chromaticAberration, ...extraMat } = modeProps as {
@@ -1623,15 +1634,15 @@ const ModeWrapper = memo(function ModeWrapper({
   );
 });
 
-function Lens({ modeProps, ...p }: { modeProps?: ModeProps } & MeshProps) {
-  return <ModeWrapper glb="/assets/3d/lens.glb" geometryKey="Cylinder" followPointer modeProps={modeProps} {...p} />;
+function Lens({ modeProps, bgColor, ...p }: { modeProps?: ModeProps; bgColor?: string } & MeshProps) {
+  return <ModeWrapper glb="/assets/3d/lens.glb" geometryKey="Cylinder" followPointer modeProps={modeProps} bgColor={bgColor} {...p} />;
 }
 
-function Cube({ modeProps, ...p }: { modeProps?: ModeProps } & MeshProps) {
-  return <ModeWrapper glb="/assets/3d/cube.glb" geometryKey="Cube" followPointer modeProps={modeProps} {...p} />;
+function Cube({ modeProps, bgColor, ...p }: { modeProps?: ModeProps; bgColor?: string } & MeshProps) {
+  return <ModeWrapper glb="/assets/3d/cube.glb" geometryKey="Cube" followPointer modeProps={modeProps} bgColor={bgColor} {...p} />;
 }
 
-function Bar({ modeProps = {}, ...p }: { modeProps?: ModeProps } & MeshProps) {
+function Bar({ modeProps = {}, bgColor, ...p }: { modeProps?: ModeProps; bgColor?: string } & MeshProps) {
   const defaultMat = {
     transmission: 1,
     roughness: 0,
@@ -1649,6 +1660,7 @@ function Bar({ modeProps = {}, ...p }: { modeProps?: ModeProps } & MeshProps) {
       lockToBottom
       followPointer={false}
       modeProps={{ ...defaultMat, ...modeProps }}
+      bgColor={bgColor}
       {...p}
     />
   );
@@ -1994,6 +2006,7 @@ export default BackToTop;`;
         );
       case 'fluid-glass':
         const mode = controlValues.mode || 'lens';
+        const bgColor = controlValues.bgColor || '#09090b';
         const modeProps = {
           scale: controlValues.scale !== undefined ? controlValues.scale : 0.25,
           ior: controlValues.ior !== undefined ? controlValues.ior : 1.15,
@@ -2009,6 +2022,7 @@ export default BackToTop;`;
               lensProps={modeProps}
               barProps={modeProps}
               cubeProps={modeProps}
+              bgColor={bgColor}
             />
           </div>
         );
@@ -2162,7 +2176,7 @@ export default BackToTop;`;
                     onClick={() => setExportTab('css')}
                     className={cn(
                       "px-2.5 py-1 text-[10px] font-mono rounded cursor-pointer transition-colors",
-                      exportTab === 'css' ? "bg-zinc-900 text-white font-bold" : "text-zinc-500 hover:text-zinc-350"
+                      exportTab === 'css' ? "bg-zinc-900 text-white font-bold" : "text-zinc-500 hover:text-zinc-355"
                     )}
                   >
                     Styles (.css)
