@@ -1,191 +1,317 @@
 <div align="center">
 
-  <br />
+<br />
 
-  <img src="public/logo.png" width="120" alt="ONYX Logo" style="border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);" />
+<img src="public/logo.png" width="96" alt="Onyx Tools" />
 
-  <h1 align="center" style="font-family: 'Inter', sans-serif; font-weight: 800; font-size: 2.5rem; letter-spacing: -0.05em; color: #ffffff; margin-top: 1.5rem; margin-bottom: 0.5rem;">ONYX</h1>
+<br />
+<br />
 
-  <p align="center" style="font-family: 'Inter', sans-serif; font-size: 1.1rem; color: #a1a1aa; max-width: 600px; margin-bottom: 1.5rem;">
-    An elegant, high-retina developer asset generator designed for fast, local workflow customization. Create snippets, optimize icons, custom WebGL backgrounds, and configure uniform color systems.
-  </p>
+# Onyx Tools
 
-  <div>
-    <a href="https://github.com/slythnox/Onyx-Tools/blob/main/LICENSE">
-      <img src="https://img.shields.io/badge/License-MIT-7c3aed?style=flat-square" alt="License MIT" />
-    </a>
-    <a href="https://react.dev">
-      <img src="https://img.shields.io/badge/React-18.3-61dafb?style=flat-square&logo=react&logoColor=black" alt="React" />
-    </a>
-    <a href="https://www.typescriptlang.org">
-      <img src="https://img.shields.io/badge/TypeScript-5.5-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-    </a>
-    <a href="https://tailwindcss.com">
-      <img src="https://img.shields.io/badge/TailwindCSS-3.4-38bdf8?style=flat-square&logo=tailwindcss&logoColor=white" alt="TailwindCSS" />
-    </a>
-    <a href="https://vitejs.dev">
-      <img src="https://img.shields.io/badge/Vite-5.4-646cff?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
-    </a>
-  </div>
+**Developer Workspace**
+
+A browser-based collection of professional developer tools for building, designing, generating, and exporting assets — entirely client-side.
+
+<br />
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-white?style=flat-square)](LICENSE)
+[![React](https://img.shields.io/badge/React-18.3-61dafb?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-5.4-646cff?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/slythnox/Onyx-Tools/pulls)
+
+<br />
+
+**[Live Demo](https://slythnox.github.io/Onyx-Tools/)** · **[Documentation](https://slythnox.github.io/Onyx-Tools/docs)** · **[Report a Bug](https://github.com/slythnox/Onyx-Tools/issues)**
+
+<br />
 
 </div>
 
-<hr style="border: 0; height: 1px; background: #27272a; margin: 2rem 0;" />
+---
 
-<h2 align="center" style="font-family: 'Inter', sans-serif; color: #ffffff;">Core Workspace Tools</h2>
+## Overview
 
-<p align="center" style="font-family: 'Inter', sans-serif; color: #a1a1aa; margin-bottom: 2rem;">
-  ONYX runs entirely in the browser, providing four specialized tools with zero external API dependencies.
-</p>
+Onyx Tools is a self-contained developer workspace that runs entirely in the browser.
 
-<table width="100%" style="border-collapse: collapse; border: 1px solid #27272a; font-family: 'Inter', sans-serif; background: #09090b;">
-  <thead>
-    <tr style="background: #18181b; border-bottom: 1px solid #27272a;">
-      <th align="left" width="25%" style="padding: 12px; color: #7c3aed; font-size: 0.95rem;">Code Snippet Generator</th>
-      <th align="left" width="25%" style="padding: 12px; color: #db2777; font-size: 0.95rem;">Lucide Icon Customizer</th>
-      <th align="left" width="25%" style="padding: 12px; color: #059669; font-size: 0.95rem;">OKLCH Color Architect</th>
-      <th align="left" width="25%" style="padding: 12px; color: #3b82f6; font-size: 0.95rem;">WebGL Background Studio</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td valign="top" style="padding: 16px; border-right: 1px solid #27272a; line-height: 1.6; color: #d4d4d8; font-size: 0.85rem;">
-        Paste source code and format it into professional visual captures. Features direct text editing inside the layout block.
-        <br /><br />
-        <strong>Capabilities:</strong>
-        <ul>
-          <li>6 built-in IDE syntax themes</li>
-          <li>6 designer gradient layouts</li>
-          <li>Retina-ready 2x PNG rendering</li>
-          <li>Mac-style window headers</li>
-          <li>Copy to clipboard / download</li>
-        </ul>
-      </td>
-      <td valign="top" style="padding: 16px; border-right: 1px solid #27272a; line-height: 1.6; color: #d4d4d8; font-size: 0.85rem;">
-        Search and configure customizable vector icons locally. Built to export customized icon packages.
-        <br /><br />
-        <strong>Capabilities:</strong>
-        <ul>
-          <li>Full index of 1,400+ Lucide icons</li>
-          <li>8 quick-filter category sections</li>
-          <li>Adjustable stroke width / sizing</li>
-          <li>Custom background colors</li>
-          <li>Export to clipboard / PNG</li>
-        </ul>
-      </td>
-      <td valign="top" style="padding: 16px; border-right: 1px solid #27272a; line-height: 1.6; color: #d4d4d8; font-size: 0.85rem;">
-        Construct perceptually-uniform color systems based on the modern OKLCH color space.
-        <br /><br />
-        <strong>Capabilities:</strong>
-        <ul>
-          <li>Hue and saturation adjustment loops</li>
-          <li>14 generated semantic tokens</li>
-          <li>CSS variables clipboard copy</li>
-          <li>Contrast previews, shadows & gradients</li>
-        </ul>
-      </td>
-      <td valign="top" style="padding: 16px; line-height: 1.6; color: #d4d4d8; font-size: 0.85rem;">
-        Design, customize, and export interactive WebGL/HTML5 animated backgrounds.
-        <br /><br />
-        <strong>Capabilities:</strong>
-        <ul>
-          <li>7 visual presets (Laser Flow, Light Rays, Floating Lines, Color Bends, Blinds, Dot Field, Particle Burst)</li>
-          <li>Full parameter setting control panels</li>
-          <li>Dynamic CLI copy / component usage codes</li>
-          <li>Source code (.tsx) & style (.css) exports</li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
+No accounts. No uploads. No external APIs. No tracking.
 
-<hr style="border: 0; height: 1px; background: #27272a; margin: 2rem 0;" />
+The project exists because developers routinely visit five or six separate websites to do things that belong in one place — screenshot their code, export an icon, generate a color palette, preview a background shader. Onyx Tools consolidates all of that into a single, fast, privacy-first workspace.
 
-<h2 style="font-family: 'Inter', sans-serif; color: #ffffff;">Technical Architecture</h2>
+Everything is client-side rendered. Everything is exportable. Everything is open source.
 
-<table width="100%" style="border-collapse: collapse; border: 1px solid #27272a; font-family: 'Inter', sans-serif; background: #09090b; font-size: 0.9rem;">
-  <thead>
-    <tr style="background: #18181b; border-bottom: 1px solid #27272a; color: #ffffff;">
-      <th align="left" style="padding: 10px;">Layer</th>
-      <th align="left" style="padding: 10px;">Dependency</th>
-      <th align="left" style="padding: 10px;">Purpose</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="border-bottom: 1px solid #27272a;">
-      <td style="padding: 10px; color: #a1a1aa; font-weight: bold;">Framework</td>
-      <td style="padding: 10px; color: #ffffff;">React 18 & TypeScript 5</td>
-      <td style="padding: 10px; color: #a1a1aa;">Type-safe UI component updates and application state</td>
-    </tr>
-    <tr style="border-bottom: 1px solid #27272a;">
-      <td style="padding: 10px; color: #a1a1aa; font-weight: bold;">Bundler</td>
-      <td style="padding: 10px; color: #ffffff;">Vite 5</td>
-      <td style="padding: 10px; color: #a1a1aa;">Production asset packaging and hot development reload</td>
-    </tr>
-    <tr style="border-bottom: 1px solid #27272a;">
-      <td style="padding: 10px; color: #a1a1aa; font-weight: bold;">Graphics Engine</td>
-      <td style="padding: 10px; color: #ffffff;">Three.js & OGL</td>
-      <td style="padding: 10px; color: #a1a1aa;">Accelerated WebGL/Shaders for premium background animations</td>
-    </tr>
-    <tr style="border-bottom: 1px solid #27272a;">
-      <td style="padding: 10px; color: #a1a1aa; font-weight: bold;">Styling</td>
-      <td style="padding: 10px; color: #ffffff;">Tailwind CSS 3</td>
-      <td style="padding: 10px; color: #a1a1aa;">Fast layout layouts integrated with OKLCH variables</td>
-    </tr>
-    <tr style="border-bottom: 1px solid #27272a;">
-      <td style="padding: 10px; color: #a1a1aa; font-weight: bold;">Image Engine</td>
-      <td style="padding: 10px; color: #ffffff;">html-to-image</td>
-      <td style="padding: 10px; color: #a1a1aa;">Compiles client DOM trees into clean PNG bitmap buffers</td>
-    </tr>
-    <tr style="border-bottom: 1px solid #27272a;">
-      <td style="padding: 10px; color: #a1a1aa; font-weight: bold;">Compression</td>
-      <td style="padding: 10px; color: #ffffff;">JSZip</td>
-      <td style="padding: 10px; color: #a1a1aa;">Handles multi-asset package zipping for download convenience</td>
-    </tr>
-  </tbody>
-</table>
+---
 
-<hr style="border: 0; height: 1px; background: #27272a; margin: 2rem 0;" />
+## Screenshots
 
-<h2 style="font-family: 'Inter', sans-serif; color: #ffffff;">Installation and Development</h2>
+> **Screenshot placeholders — replace with actual images before publishing.**
 
-<p style="font-family: 'Inter', sans-serif; color: #a1a1aa; font-size: 0.95rem; line-height: 1.6;">
-  To run the ONYX workspace locally, follow these standard commands:
-</p>
+| Home | Tool Workspace |
+|---|---|
+| ![Home](docs/images/home.png) | ![Workspace](docs/images/workspace.png) |
+
+| Background Studio | Code Snippets |
+|---|---|
+| ![Background Studio](docs/images/background-studio.png) | ![Code Snippets](docs/images/code-studio.png) |
+
+---
+
+## Tools
+
+Onyx Tools ships six production-ready studios. Each tool operates independently and can export assets directly from the browser.
+
+| Tool | Description | Category | Shortcut |
+|---|---|---|---|
+| **Code Snippets** | Generate beautiful high-retina code screenshots with IDE themes, gradient layouts, and Mac-style window chrome. Export as PNG. | Developer | `S` |
+| **Icon Studio** | Search, customize, and export 1,400+ Lucide icons. Adjust stroke, size, and color. Export as SVG, PNG, or JSX. | Design | `I` |
+| **OKLCH Generator** | Construct perceptually-uniform color systems using the OKLCH color space. Generate semantic token scales for dark and light modes. | Color | `C` |
+| **Background Studio** | Design and export animated WebGL and CSS backgrounds. Seven visual presets with full parameter control. Export as React component, Tailwind, HTML/CSS. | Design | `B` |
+| **Text Animations** | Preview, customize, and export high-performance React text animation components. Multiple animation patterns with live controls. | Design | `T` |
+| **Components** | Preview, configure, and export interactive React UI components. Live parameter panel with source code and CSS export. | Design | `D` |
+
+### Coming Soon
+
+| Tool | Description | Status |
+|---|---|---|
+| Image Optimizer | Client-side PNG/WebP compression without upload | Planned |
+| Font Pairing | Visual type-scale and pairing preview system | Planned |
+| Gradient Builder | Advanced mesh gradient editor with CSS export | Planned |
+| SVG Editor | Inline SVG manipulation and optimization | Planned |
+
+---
+
+## Architecture
+
+### Application Flow
+
+```mermaid
+graph TD
+    A[Browser] --> B[React Router]
+    B --> C{Route}
+    C -->|/| D[Landing Page]
+    C -->|/tools/:id| E[Tool Wrapper]
+    C -->|/docs| F[Documentation]
+    E --> G[Tool Registry]
+    G --> H[React.lazy Module]
+    H --> I[Tool Module]
+    I --> J[Export Engine]
+    J -->|PNG| K[html-to-image]
+    J -->|ZIP| L[JSZip]
+    J -->|SVG/JSX| M[Clipboard API]
+```
+
+### Module Registry
+
+```mermaid
+graph LR
+    R[registry/tools.ts] --> S[Code Snippets]
+    R --> IC[Icon Studio]
+    R --> C[OKLCH Generator]
+    R --> B[Background Studio]
+    R --> T[Text Animations]
+    R --> CO[Components]
+    S --> |React.lazy| SB[snippets bundle]
+    IC --> |React.lazy| IB[icons bundle]
+    C --> |React.lazy| CB[colors bundle]
+    B --> |React.lazy| BB[backgrounds bundle]
+    T --> |React.lazy| TB[text-animations bundle]
+    CO --> |React.lazy| COB[components bundle]
+```
+
+### Project Structure
+
+```
+onyx-tools/
+├── app/
+│   ├── layouts/          # AppLayout — persistent shell, nav, footer
+│   ├── providers/        # App-level context providers
+│   └── routes/
+│       ├── landing.tsx   # Home page with hero and tool grid
+│       ├── tool-wrapper.tsx  # Shared wrapper for all tool modules
+│       └── docs.tsx      # Documentation page
+│
+├── components/
+│   └── ui/               # Reusable primitives (Button, Input, Select…)
+│                         # Production UI components (Dock, Magnet, MagicBento…)
+│
+├── modules/
+│   ├── snippets/         # Code Snippets studio
+│   ├── icons/            # Icon Studio
+│   ├── colors/           # OKLCH Generator
+│   ├── background-studio/  # Background Studio (WebGL shaders)
+│   ├── text-animations/  # Text Animations studio
+│   └── components/       # Components catalog
+│
+├── registry/
+│   └── tools.ts          # Central tool metadata registry
+│
+├── lib/                  # Shared utilities (cn, syntax highlighter…)
+├── styles/               # Global CSS, design tokens
+├── types/                # Shared TypeScript type definitions
+├── public/               # Static assets
+└── vite.config.ts        # Build configuration
+```
+
+---
+
+## Technology Stack
+
+| Layer | Technology | Version | Purpose |
+|---|---|---|---|
+| Framework | React | 18.3 | Component model and rendering |
+| Language | TypeScript | 5.5 | Type safety across all modules |
+| Bundler | Vite | 5.4 | Dev server, production builds, code splitting |
+| Styling | Tailwind CSS | 3.4 | Utility-first layout and design system |
+| Routing | React Router | 7 | Client-side SPA navigation |
+| 3D / WebGL | Three.js + React Three Fiber | 0.180 | Hardware-accelerated background shaders |
+| WebGL (lightweight) | OGL | 1.0 | Minimal WebGL renderer for custom shaders |
+| Animation | GSAP | 3.15 | Timeline-based component animations |
+| Animation | Framer Motion / Motion | 12 | Declarative React transitions |
+| Scroll | Lenis | 1.3 | Smooth scroll engine for ScrollStack |
+| Icons | Lucide React | 0.344 | 1,400+ vector icons |
+| Image Export | html-to-image | 1.11 | DOM-to-PNG rendering pipeline |
+| Compression | JSZip | 3.10 | Multi-asset ZIP packaging |
+
+---
+
+## Installation
+
+**Requirements:** Node.js ≥ 18
 
 ```bash
-# Clone the repository
+# Clone
 git clone https://github.com/slythnox/Onyx-Tools.git
 cd Onyx-Tools
 
 # Install dependencies
 npm install
 
-# Run the local development server
+# Start the development server
 npm run dev
 ```
 
-<p style="font-family: 'Inter', sans-serif; color: #a1a1aa; font-size: 0.95rem; line-height: 1.6; margin-top: 1.5rem;">
-  Build management and verification utilities:
-</p>
-
 ```bash
-# Compile and check TypeScript types
+# Type check (zero errors expected)
 npm run type-check
 
-# Perform static linting checks
+# Lint
 npm run lint
 
-# Build optimized production bundle
+# Production build
 npm run build
 
-# Preview the built production assets locally
+# Preview production build locally
 npm run preview
 ```
 
-<hr style="border: 0; height: 1px; background: #27272a; margin: 2rem 0;" />
+The dev server starts at `http://localhost:5173` by default.
 
-<div align="center" style="font-family: 'Inter', sans-serif; color: #71717a; font-size: 0.85rem;">
-  <p>ONYX and all associated assets are licensed under the MIT License.</p>
-  <p>Maintained by slythnox</p>
+---
+
+## Design Philosophy
+
+**Local-first.** Every operation happens in the browser. No data leaves the device. This is not a feature — it is a constraint that shapes every architectural decision.
+
+**Performance by default.** Tool modules load lazily. Bundles are split per route. WebGL contexts are reused. Animation frames are throttled. The goal is that heavy tools feel light.
+
+**No abstractions without purpose.** The codebase avoids framework layers and wrapper patterns unless they solve a concrete problem. The tool registry is a flat array. Routes are a switch statement. Exports are direct DOM operations.
+
+**Modularity.** Adding a new tool means adding an entry to `registry/tools.ts` and creating a module folder. Nothing else changes. The shell, navigation, and export engine are shared infrastructure.
+
+**Developer experience.** Every tool follows the same interaction model: left panel for controls, right panel for preview, top bar for export. Keyboard shortcuts work from the tools directory. Copy-paste code is always ready.
+
+---
+
+## Performance
+
+| Concern | Approach |
+|---|---|
+| Initial load | Only the landing page and shell load on first visit |
+| Tool modules | Loaded via `React.lazy` on first navigation to each tool |
+| WebGL contexts | Created once per component, cleaned up on unmount |
+| Mouse tracking | Throttled inside `requestAnimationFrame` to prevent layout thrashing |
+| Scroll animation | Lenis instances are fully terminated on component unmount |
+| Export pipeline | DOM rendering via `html-to-image` runs off the main thread where possible |
+| Bundle size | Three.js is isolated to background modules; never loaded for non-WebGL tools |
+
+---
+
+## Roadmap
+
+**Completed**
+
+- [x] Code Snippets studio with retina PNG export
+- [x] Icon Studio with SVG, PNG, and JSX export
+- [x] OKLCH Generator with semantic token scale
+- [x] Background Studio with 7 WebGL/CSS presets
+- [x] Text Animations studio
+- [x] Component catalog with live preview and source export
+- [x] Keyboard navigation and `focus-visible` accessibility
+- [x] Production build pipeline with Vite code splitting
+- [x] Docs page
+
+**In Progress**
+
+- [ ] Improved mobile layout for tool workspaces
+- [ ] Additional background presets
+
+**Planned**
+
+- [ ] Image optimizer (client-side compression)
+- [ ] Font pairing preview tool
+- [ ] Advanced gradient builder
+- [ ] SVG path editor
+- [ ] Keyboard shortcut reference overlay
+
+---
+
+## Contributing
+
+Contributions are welcome. Please read the following before opening a pull request.
+
+**Bug reports**
+
+Open an issue with a clear description of the problem, steps to reproduce, and your browser version.
+
+**Feature requests**
+
+Open an issue describing the feature, the use case it solves, and any relevant prior art.
+
+**Pull requests**
+
+```bash
+# Fork the repository, then:
+git checkout -b feature/your-feature-name
+
+# Make your changes
+# Run type check before committing
+npm run type-check
+npm run lint
+
+git commit -m "feat: describe your change clearly"
+git push origin feature/your-feature-name
+```
+
+Open a pull request against `main`. Include a clear description of what changed and why.
+
+For new tools, follow the existing module structure and register the tool in `registry/tools.ts`.
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE) for details.
+
+---
+
+<div align="center">
+
+Maintained by [slythnox](https://github.com/slythnox)
+
+<br />
+
+Built with [React](https://react.dev) · [Vite](https://vitejs.dev) · [Three.js](https://threejs.org) · [OGL](https://github.com/oframe/ogl) · [GSAP](https://gsap.com) · [Lucide](https://lucide.dev) · [ReactBits](https://reactbits.dev)
+
 </div>
