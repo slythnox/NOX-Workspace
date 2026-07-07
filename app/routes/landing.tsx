@@ -18,7 +18,7 @@ export default function LandingPage() {
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section className="relative w-full h-[calc(100vh-80px)] min-h-[600px] flex flex-col items-center justify-center overflow-hidden border-b border-zinc-900 bg-black">
         {/* WebGL shader */}
-        <div className="absolute inset-0 z-0 opacity-90 select-none pointer-events-none">
+        <div className="absolute inset-0 z-0 opacity-90 select-none pointer-events-auto">
           <GradientBlinds
             gradientColors={['#FF0000', '#000000']}
             angle={35} noise={0.45} blindCount={12} blindMinWidth={60}
@@ -143,23 +143,23 @@ export default function LandingPage() {
           {/* subtle glow bg */}
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-900/10 to-transparent pointer-events-none" />
           <h2 className="relative font-extrabold text-3xl sm:text-4xl text-white tracking-tight leading-tight">
-            Stop building from scratch.
+            Craft beautiful interfaces faster.
           </h2>
-          <p className="relative text-sm text-zinc-400 max-w-sm leading-relaxed">
-            Beautiful, production-ready tools and components you can drop into any project. Open source. Always free.
+          <p className="relative text-sm text-zinc-400 max-w-md leading-relaxed">
+            Bring your designs to life with a curated selection of advanced, copy-paste ready developer tools and interactive motion components.
           </p>
-          <div className="relative flex items-center gap-3 flex-wrap justify-center">
-            <button
-              onClick={() => navigate('/tools/components')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded bg-white text-black font-mono text-xs font-bold hover:bg-zinc-200 transition-colors"
+          <div className="relative flex items-center gap-3 flex-wrap justify-center font-mono">
+            <Link
+              to="/docs"
+              className="flex items-center gap-2 px-5 py-2.5 rounded bg-white text-black text-xs font-bold hover:bg-zinc-200 transition-colors"
             >
-              Browse Components <span className="opacity-60">→</span>
-            </button>
+              Read Documentation <span className="opacity-60">→</span>
+            </Link>
             <a
               href="https://github.com/slythnox/Onyx-Tools"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 rounded border border-zinc-700 bg-transparent text-zinc-200 font-mono text-xs font-bold hover:border-zinc-500 hover:text-white transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 rounded border border-zinc-700 bg-transparent text-zinc-200 text-xs font-bold hover:border-zinc-500 hover:text-white transition-colors"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>

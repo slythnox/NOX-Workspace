@@ -306,7 +306,7 @@ void main() {
         uniforms.iMouse.value = [x, y];
       }
     };
-    container.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointermove', onPointerMove);
 
     const startTime = performance.now();
 
@@ -333,8 +333,8 @@ void main() {
         if (!lastTimeRef.current) lastTimeRef.current = t;
         const dt = (t - lastTimeRef.current) / 1000;
         lastTimeRef.current = t;
-        const tau = Math.max(1e-4, mouseDampening);
-        let factor = 1 - Math.exp(-dt / tau);
+        const _tau = Math.max(1e-4, mouseDampening);
+        let factor = 1 - Math.exp(-dt / _tau);
         if (factor > 1) factor = 1;
         const target = mouseTargetRef.current;
         const cur = uniforms.iMouse.value;
@@ -355,7 +355,7 @@ void main() {
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      container.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointermove', onPointerMove);
       ro.disconnect();
       if (canvas.parentElement === container) {
         container.removeChild(canvas);
