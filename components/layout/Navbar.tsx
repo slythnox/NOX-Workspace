@@ -29,7 +29,7 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              to="/tools/snippets"
+              to="/tools/backgrounds"
               className={cn(
                 'text-xs font-mono px-2.5 py-1 rounded transition-colors',
                 location.pathname.startsWith('/tools') ? 'text-white bg-zinc-900' : 'text-zinc-400 hover:text-zinc-100'
