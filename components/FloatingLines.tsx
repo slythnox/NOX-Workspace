@@ -23,6 +23,7 @@ void main() {
 
 const fragmentShader = `
 precision highp float;
+precision highp int;
 
 uniform float iTime;
 uniform vec3  iResolution;
@@ -214,7 +215,8 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     }
   }
 
-  fragColor = vec4(col, 1.0);
+  float alphaVal = lineGradientCount > 0 ? clamp(max(max(col.r, col.g), col.b), 0.0, 1.0) : 1.0;
+  fragColor = vec4(col, alphaVal);
 }
 
 void main() {
@@ -289,7 +291,7 @@ export default function FloatingLines({
   mouseDamping = 0.05,
   parallax = true,
   parallaxStrength = 0.2,
-  mixBlendMode = 'screen'
+  mixBlendMode = 'normal'
 }: FloatingLinesProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const targetMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
@@ -333,7 +335,8 @@ export default function FloatingLines({
     const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
     camera.position.z = 1;
 
-    const renderer = new WebGLRenderer({ antialias: true, alpha: false });
+    const renderer = new WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setClearColor(0x000000, 0);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
