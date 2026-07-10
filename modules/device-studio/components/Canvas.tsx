@@ -181,7 +181,7 @@ export default function Canvas({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isPanning, draggedId, dragStart, deviceOffset, viewState.zoom, devices]);
+  }, [isPanning, draggedId, dragStart, deviceOffset, viewState.zoom, devices, panStart, onUpdateDevice, setViewState]);
 
   // Drop File handler for drag & drop screenshots directly onto target devices
   const handleDrop = (id: string, e: React.DragEvent) => {

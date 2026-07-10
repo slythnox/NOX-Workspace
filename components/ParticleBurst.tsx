@@ -19,13 +19,22 @@ interface ParticleBurstProps {
   fieldStrength: number;
 }
 
+interface Particle {
+  angle: number;
+  dist: number;
+  speed: number;
+  opacity: number;
+  variance: number;
+  sizeOffset: number;
+}
+
 export const ParticleBurst: React.FC<ParticleBurstProps> = ({
   canvasBg, particleCount, magnetRadius, ringRadius, waveSpeed, waveAmplitude,
   particleSize, lerpSpeed, color, autoAnimate, particleVariance, rotationSpeed,
   depthFactor, pulseSpeed, particleShape, fieldStrength
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<any[]>([]);
+  const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef<{ x: number; y: number }>({ x: -1000, y: -1000 });
 
   // Cache slider props in a ref to prevent recreation of particles and event listeners
@@ -102,7 +111,7 @@ export const ParticleBurst: React.FC<ParticleBurstProps> = ({
     };
     render();
     return () => { cancelAnimationFrame(animationId); window.removeEventListener('resize',resize); window.removeEventListener('mousemove',onMouseMove); };
-  }, [particleCount, particleVariance]);
+  }, [particleCount, particleVariance, ringRadius]);
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />;
 };
 

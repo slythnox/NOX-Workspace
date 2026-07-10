@@ -1,7 +1,6 @@
 import React, { Suspense, useState, useEffect, useRef } from 'react';
 import { useParams, Navigate, Link, useNavigate } from 'react-router-dom';
 import { TOOLS_REGISTRY } from '@/registry/tools';
-import Skeleton from '@/components/ui/Skeleton';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

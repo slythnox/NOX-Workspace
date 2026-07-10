@@ -168,21 +168,21 @@ export default function ColorBends({
       uniforms: {
         uCanvas: { value: new THREE.Vector2(1, 1) },
         uTime: { value: 0 },
-        uSpeed: { value: speed },
+        uSpeed: { value: 0 },
         uRot: { value: new THREE.Vector2(1, 0) },
         uColorCount: { value: 0 },
         uColors: { value: uColorsArray },
-        uTransparent: { value: transparent ? 1 : 0 },
-        uScale: { value: scale },
-        uFrequency: { value: frequency },
-        uWarpStrength: { value: warpStrength },
+        uTransparent: { value: 0 },
+        uScale: { value: 1.0 },
+        uFrequency: { value: 1.0 },
+        uWarpStrength: { value: 0 },
         uPointer: { value: new THREE.Vector2(0, 0) },
-        uMouseInfluence: { value: mouseInfluence },
-        uParallax: { value: parallax },
-        uNoise: { value: noise },
-        uIterations: { value: iterations },
-        uIntensity: { value: intensity },
-        uBandWidth: { value: bandWidth }
+        uMouseInfluence: { value: 0 },
+        uParallax: { value: 0 },
+        uNoise: { value: 0 },
+        uIterations: { value: 0 },
+        uIntensity: { value: 0 },
+        uBandWidth: { value: 0 }
       },
       premultipliedAlpha: true,
       transparent: true
@@ -198,9 +198,9 @@ export default function ColorBends({
       alpha: true
     });
     rendererRef.current = renderer;
-    (renderer as any).outputColorSpace = (THREE as any).SRGBColorSpace;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setClearColor(0x000000, transparent ? 0 : 1);
+    renderer.setClearColor(0x000000, 0);
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
     renderer.domElement.style.display = 'block';

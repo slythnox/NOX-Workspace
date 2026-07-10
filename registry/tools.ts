@@ -10,7 +10,7 @@ export interface ToolMetadata {
   shortcut: string; // Keyboard shortcut key, e.g. "S" (press S on directory page)
   keywords: string[];
   featured: boolean;
-  component: React.LazyExoticComponent<React.ComponentType<any>>;
+  component: React.LazyExoticComponent<React.ComponentType>;
 }
 
 export const TOOLS_REGISTRY: ToolMetadata[] = [

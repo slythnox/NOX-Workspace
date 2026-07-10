@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, Code, RotateCcw, Heart, Copy, Check, Sparkles, RefreshCw, Type, Sliders, Play, X } from 'lucide-react';
+import { Eye, Code, RotateCcw, Copy, Check, Sparkles, RefreshCw, Type, Sliders, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // TYPES
-type EaseType = 'power3.out' | 'power2.out' | 'elastic.out' | 'bounce.out' | 'back.out' | 'linear';
 type AnimationTab = 'preview' | 'code';
 type ExportTab = 'react' | 'usage';
 
@@ -12,7 +11,7 @@ interface ControlField {
   id: string;
   label: string;
   type: 'slider' | 'select' | 'toggle' | 'text' | 'color';
-  default: any;
+  default: string | number | boolean;
   min?: number;
   max?: number;
   step?: number;
@@ -376,7 +375,7 @@ const ShufflePreview = ({
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
     let ticks = 0;
     const target = text;
-    let timer: any;
+    let timer: ReturnType<typeof setTimeout> | undefined;
 
     const tick = () => {
       const progress = (ticks * speed) / decryptDelay;
@@ -498,7 +497,7 @@ const DecryptedTextPreview = ({
   useEffect(() => {
     const matrixChars = '0123456789ABCDEF@#$%&+*';
     let cycle = 0;
-    let timer: any;
+    let timer: ReturnType<typeof setTimeout> | undefined;
 
     const step = () => {
       let out = '';
@@ -660,14 +659,13 @@ export default function TextAnimationsPage() {
   const [activeAnimId, setActiveAnimId] = useState<string>('split-text');
   const [activeTab, setActiveTab] = useState<AnimationTab>('preview');
   const [exportTab, setExportTab] = useState<ExportTab>('react');
-  const [liked, setLiked] = useState<Record<string, boolean>>({});
   const [copied, setCopied] = useState<boolean>(false);
   const [triggerKey, setTriggerKey] = useState<number>(0);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const activeConfig = ANIMATIONS.find(a => a.id === activeAnimId) || ANIMATIONS[0];
   const [customText, setCustomText] = useState<string>(activeConfig.defaultText);
-  const [controlValues, setControlValues] = useState<Record<string, any>>({});
+  const [controlValues, setControlValues] = useState<Record<string, string | number | boolean>>({});
   const [scrollTexts, setScrollTexts] = useState<string[]>([
     'ONYX WORKSPACE UTILITIES',
     'SPEED BANNERS',
@@ -677,15 +675,15 @@ export default function TextAnimationsPage() {
   // Reset values when switching animations
   useEffect(() => {
     setCustomText(activeConfig.defaultText);
-    const initialValues: Record<string, any> = {};
+    const initialValues: Record<string, string | number | boolean> = {};
     activeConfig.controls.forEach(c => {
       initialValues[c.id] = c.default;
     });
     setControlValues(initialValues);
     setTriggerKey(prev => prev + 1);
-  }, [activeAnimId]);
+  }, [activeAnimId, activeConfig.controls, activeConfig.defaultText]);
 
-  const handleControlChange = (controlId: string, val: any) => {
+  const handleControlChange = (controlId: string, val: string | number | boolean) => {
     setControlValues(prev => ({
       ...prev,
       [controlId]: val
@@ -693,7 +691,7 @@ export default function TextAnimationsPage() {
   };
 
   const handleReset = () => {
-    const defaultValues: Record<string, any> = {};
+    const defaultValues: Record<string, string | number | boolean> = {};
     activeConfig.controls.forEach(c => {
       defaultValues[c.id] = c.default;
     });
@@ -706,14 +704,6 @@ export default function TextAnimationsPage() {
     ]);
     setTriggerKey(prev => prev + 1);
     showToastNotification('Animation parameters reset');
-  };
-
-  const handleToggleLike = () => {
-    setLiked(prev => ({
-      ...prev,
-      [activeAnimId]: !prev[activeAnimId]
-    }));
-    showToastNotification(!liked[activeAnimId] ? 'Added to favorites' : 'Removed from favorites');
   };
 
   const showToastNotification = (msg: string) => {
@@ -994,7 +984,7 @@ export default function ${activeConfig.name.replace(/\s+/g, '')}({
         // Framer Motion transition mapping
         let transitionEase = [0.215, 0.610, 0.355, 1.000]; // power3.out equivalent
         if (easeVal === 'power2.out') transitionEase = [0.165, 0.84, 0.44, 1.0];
-        if (easeVal === 'linear') transitionEase = [0, 0, 1, 1] as any;
+        if (easeVal === 'linear') transitionEase = [0, 0, 1, 1];
         if (easeVal === 'elastic.out') transitionEase = [0.175, 0.885, 0.32, 1.275]; // back/elastic approx
 
         const containerVariants = {
@@ -1420,8 +1410,7 @@ export default function ${activeConfig.name.replace(/\s+/g, '')}({
         const fontStyle = controlValues.fontStyle || 'block';
 
         // Custom Ascii Blocks
-        const getAsciiArt = (str: string) => {
-          const upper = str.toUpperCase();
+        const getAsciiArt = () => {
           if (fontStyle === 'slant') {
             return `
   __   __ _  _  _  _  
@@ -1449,7 +1438,7 @@ export default function ${activeConfig.name.replace(/\s+/g, '')}({
 
         return (
           <pre className="font-mono text-[9px] sm:text-xs text-white leading-tight overflow-x-auto whitespace-pre p-4 bg-zinc-950/30 border border-zinc-900/60 rounded max-w-lg select-all">
-            {getAsciiArt(text)}
+            {getAsciiArt()}
           </pre>
         );
       }
@@ -1487,11 +1476,10 @@ export default function ${activeConfig.name.replace(/\s+/g, '')}({
           <div
             className="relative font-sans text-4xl sm:text-5xl font-black tracking-widest text-white uppercase select-none"
             style={{
-              // @ts-ignore
               '--glitch-color1': color1,
               '--glitch-color2': color2,
               animation: `glitch ${1.5 / intensity}s infinite linear alternate-reverse`
-            }}
+            } as React.CSSProperties}
           >
             <span className="relative z-10">{text}</span>
             <span

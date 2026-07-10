@@ -105,6 +105,8 @@ const LightRays: React.FC<LightRaysProps> = ({
   const animationIdRef = useRef<number | null>(null);
   const meshRef = useRef<Mesh | null>(null);
   const cleanupFunctionRef = useRef<(() => void) | null>(null);
+  const followMouseRef = useRef(followMouse);
+  const raysOriginRef = useRef(raysOrigin);
   const [isVisible, setIsVisible] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -268,17 +270,17 @@ void main() {
         rayPos: { value: [0, 0] },
         rayDir: { value: [0, 1] },
 
-        raysColor: { value: hexToRgb(raysColor) },
-        raysSpeed: { value: raysSpeed },
-        lightSpread: { value: lightSpread },
-        rayLength: { value: rayLength },
-        pulsating: { value: pulsating ? 1.0 : 0.0 },
-        fadeDistance: { value: fadeDistance },
-        saturation: { value: saturation },
+        raysColor: { value: [1.0, 1.0, 1.0] },
+        raysSpeed: { value: 0 },
+        lightSpread: { value: 1.0 },
+        rayLength: { value: 1.0 },
+        pulsating: { value: 0 },
+        fadeDistance: { value: 1.0 },
+        saturation: { value: 1.0 },
         mousePos: { value: [0.5, 0.5] },
-        mouseInfluence: { value: mouseInfluence },
-        noiseAmount: { value: noiseAmount },
-        distortion: { value: distortion }
+        mouseInfluence: { value: 0.0 },
+        noiseAmount: { value: 0.0 },
+        distortion: { value: 0.0 }
       };
       uniformsRef.current = uniforms;
 
@@ -305,7 +307,7 @@ void main() {
 
         uniforms.iResolution.value = [w, h];
 
-        const { anchor, dir } = getAnchorAndDir(raysOrigin, w, h);
+        const { anchor, dir } = getAnchorAndDir(raysOriginRef.current, w, h);
         uniforms.rayPos.value = anchor;
         uniforms.rayDir.value = dir;
       };
@@ -317,7 +319,7 @@ void main() {
 
         uniforms.iTime.value = t * 0.001;
 
-        if (followMouse && mouseInfluence > 0.0) {
+        if (followMouseRef.current && uniforms.mouseInfluence.value > 0.0) {
           const smoothing = 0.92;
 
           smoothMouseRef.current.x = smoothMouseRef.current.x * smoothing + mouseRef.current.x * (1 - smoothing);
@@ -380,6 +382,9 @@ void main() {
   }, [isVisible]);
 
   useEffect(() => {
+    followMouseRef.current = followMouse;
+    raysOriginRef.current = raysOrigin;
+
     if (!uniformsRef.current || !containerRef.current || !rendererRef.current) return;
 
     const u = uniformsRef.current;
@@ -412,7 +417,8 @@ void main() {
     saturation,
     mouseInfluence,
     noiseAmount,
-    distortion
+    distortion,
+    followMouse
   ]);
 
   useEffect(() => {

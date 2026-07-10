@@ -17,7 +17,7 @@ import {
 interface DocSection {
   id: string;
   title: string;
-  icon: any;
+  icon: React.ElementType;
 }
 
 export default function DocsPage() {

@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AppLayout from '@/app/layouts/AppLayout';
 import LandingPage from '@/app/routes/landing';
-import ToolsDirectory from '@/app/routes/tools-directory';
 import ToolWrapper from '@/app/routes/tool-wrapper';
 import DocsPage from '@/app/routes/docs';
 

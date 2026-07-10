@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import * as THREE from 'three';
 import { useRef, useState, useEffect, memo, ReactNode } from 'react';
 import { Canvas, createPortal, useFrame, useThree, ThreeElements } from '@react-three/fiber';
@@ -84,7 +83,7 @@ interface ZoomMaterial extends THREE.Material {
   zoom: number;
 }
 
-interface ZoomMesh extends THREE.Mesh<THREE.BufferGeometry, ZoomMaterial> {}
+type ZoomMesh = THREE.Mesh<THREE.BufferGeometry, ZoomMaterial>;
 
 type ZoomGroup = THREE.Group & { children: ZoomMesh[] };
 
@@ -206,29 +205,30 @@ function Bar({
   );
 }
 
+const NAV_DEVICE_CONFIG = {
+  mobile: { max: 639, spacing: 0.2, fontSize: 0.035 },
+  tablet: { max: 1023, spacing: 0.24, fontSize: 0.045 },
+  desktop: { max: Infinity, spacing: 0.3, fontSize: 0.045 }
+};
+
+const getNavDeviceType = () => {
+  const w = window.innerWidth;
+  return w <= NAV_DEVICE_CONFIG.mobile.max ? 'mobile' : w <= NAV_DEVICE_CONFIG.tablet.max ? 'tablet' : 'desktop';
+};
+
 function NavItems({ items }: { items: NavItem[] }) {
   const group = useRef<THREE.Group>(null!);
   const { viewport, camera } = useThree();
 
-  const DEVICE = {
-    mobile: { max: 639, spacing: 0.2, fontSize: 0.035 },
-    tablet: { max: 1023, spacing: 0.24, fontSize: 0.045 },
-    desktop: { max: Infinity, spacing: 0.3, fontSize: 0.045 }
-  };
-  const getDevice = () => {
-    const w = window.innerWidth;
-    return w <= DEVICE.mobile.max ? 'mobile' : w <= DEVICE.tablet.max ? 'tablet' : 'desktop';
-  };
-
-  const [device, setDevice] = useState<keyof typeof DEVICE>(getDevice());
+  const [device, setDevice] = useState<keyof typeof NAV_DEVICE_CONFIG>(getNavDeviceType());
 
   useEffect(() => {
-    const onResize = () => setDevice(getDevice());
+    const onResize = () => setDevice(getNavDeviceType());
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  const { spacing, fontSize } = DEVICE[device];
+  const { spacing, fontSize } = NAV_DEVICE_CONFIG[device];
 
   useFrame(() => {
     if (!group.current) return;
@@ -242,7 +242,11 @@ function NavItems({ items }: { items: NavItem[] }) {
 
   const handleNavigate = (link: string) => {
     if (!link) return;
-    link.startsWith('#') ? (window.location.hash = link) : (window.location.href = link);
+    if (link.startsWith('#')) {
+      window.location.hash = link;
+    } else {
+      window.location.href = link;
+    }
   };
 
   return (

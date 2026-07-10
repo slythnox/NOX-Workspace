@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, Code, RotateCcw, Copy, Check, Sliders, Layers } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -179,21 +179,21 @@ export default function ComponentsPage() {
   const [copied, setCopied] = useState<boolean>(false);
   const [triggerKey, setTriggerKey] = useState<number>(0);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [controlValues, setControlValues] = useState<Record<string, any>>({});
+  const [controlValues, setControlValues] = useState<Record<string, string | number | boolean>>({});
 
   const activeConfig = COMPONENTS.find(c => c.id === activeAnimId) || COMPONENTS[0];
 
   // Initialize controls
   useEffect(() => {
-    const initialValues: Record<string, any> = {};
+    const initialValues: Record<string, string | number | boolean> = {};
     activeConfig.controls.forEach(c => {
       initialValues[c.id] = c.default;
     });
     setControlValues(initialValues);
     setTriggerKey(prev => prev + 1);
-  }, [activeAnimId]);
+  }, [activeAnimId, activeConfig.controls]);
 
-  const handleControlChange = (controlId: string, val: any) => {
+  const handleControlChange = (controlId: string, val: string | number | boolean) => {
     setControlValues(prev => ({
       ...prev,
       [controlId]: val
@@ -201,7 +201,7 @@ export default function ComponentsPage() {
   };
 
   const handleReset = () => {
-    const defaultValues: Record<string, any> = {};
+    const defaultValues: Record<string, string | number | boolean> = {};
     activeConfig.controls.forEach(c => {
       defaultValues[c.id] = c.default;
     });
@@ -2275,29 +2275,30 @@ function Typography() {
             </Magnet>
           </div>
         );
-      case 'fluid-glass':
+      case 'fluid-glass': {
         const mode = controlValues.mode || 'lens';
         const bgColor = controlValues.bgColor || '#09090b';
         const modeProps = {
           scale: controlValues.scale !== undefined ? controlValues.scale : 0.25,
           ior: controlValues.ior !== undefined ? controlValues.ior : 1.15,
           thickness: controlValues.thickness !== undefined ? controlValues.thickness : 5,
-          chromaticAberration: controlValues.chromaticAberration !== undefined ? controlValues.chromaticAberration : 0.1,
-          anisotropy: controlValues.anisotropy !== undefined ? controlValues.anisotropy : 0.01
+          chromaticAberration: controlValues.chromaticAberration !== undefined ? (controlValues.chromaticAberration as number) : 0.1,
+          anisotropy: controlValues.anisotropy !== undefined ? (controlValues.anisotropy as number) : 0.01
         };
         return (
           <div className="w-full max-w-lg h-96 border border-zinc-900 bg-zinc-950 rounded-2xl overflow-hidden relative">
             <FluidGlass
               key={triggerKey + '-' + mode}
-              mode={mode}
+              mode={mode as 'lens' | 'bar' | 'cube'}
               lensProps={modeProps}
               barProps={modeProps}
               cubeProps={modeProps}
-              bgColor={bgColor}
+              bgColor={bgColor as string}
               barLockToBottom={false}
             />
           </div>
         );
+      }
       case 'sparkle-button':
         return (
           <div className="w-full h-40 flex items-center justify-center p-4">

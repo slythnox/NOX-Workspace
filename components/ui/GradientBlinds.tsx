@@ -67,7 +67,15 @@ const GradientBlinds: React.FC<GradientBlindsProps> = ({
   const lastTimeRef = useRef<number>(0);
   const firstResizeRef = useRef<boolean>(true);
   const hasInteractedRef = useRef<boolean>(false);
-  const uniformsRef = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const uniformsRef = useRef<Record<string, { value: any }> | null>(null);
+  const blindMinWidthRef = useRef(blindMinWidth);
+  const blindCountRef = useRef(blindCount);
+  const mouseDampeningRef = useRef(mouseDampening);
+
+  blindMinWidthRef.current = blindMinWidth;
+  blindCountRef.current = blindCount;
+  mouseDampeningRef.current = mouseDampening;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -208,7 +216,6 @@ void main() {
 }
 `;
 
-    const { arr: colorArr, count: colorCount } = prepStops(gradientColors);
     const uniforms: {
       iResolution: { value: [number, number, number] };
       iMouse: { value: [number, number] };
@@ -237,24 +244,24 @@ void main() {
       },
       iMouse: { value: [-1000, -1000] },
       iTime: { value: 0 },
-      uAngle: { value: (angle * Math.PI) / 180 },
-      uNoise: { value: noise },
-      uBlindCount: { value: Math.max(1, blindCount) },
-      uSpotlightRadius: { value: spotlightRadius },
-      uSpotlightSoftness: { value: spotlightSoftness },
-      uSpotlightOpacity: { value: spotlightOpacity },
-      uMirror: { value: mirrorGradient ? 1 : 0 },
-      uDistort: { value: distortAmount },
-      uShineFlip: { value: shineDirection === 'right' ? 1 : 0 },
-      uColor0: { value: colorArr[0] },
-      uColor1: { value: colorArr[1] },
-      uColor2: { value: colorArr[2] },
-      uColor3: { value: colorArr[3] },
-      uColor4: { value: colorArr[4] },
-      uColor5: { value: colorArr[5] },
-      uColor6: { value: colorArr[6] },
-      uColor7: { value: colorArr[7] },
-      uColorCount: { value: colorCount }
+      uAngle: { value: 0 },
+      uNoise: { value: 0 },
+      uBlindCount: { value: 1 },
+      uSpotlightRadius: { value: 1.0 },
+      uSpotlightSoftness: { value: 1.0 },
+      uSpotlightOpacity: { value: 1.0 },
+      uMirror: { value: 0 },
+      uDistort: { value: 0 },
+      uShineFlip: { value: 0 },
+      uColor0: { value: [0, 0, 0] },
+      uColor1: { value: [0, 0, 0] },
+      uColor2: { value: [0, 0, 0] },
+      uColor3: { value: [0, 0, 0] },
+      uColor4: { value: [0, 0, 0] },
+      uColor5: { value: [0, 0, 0] },
+      uColor6: { value: [0, 0, 0] },
+      uColor7: { value: [0, 0, 0] },
+      uColorCount: { value: 0 }
     };
     uniformsRef.current = uniforms;
 
@@ -275,13 +282,16 @@ void main() {
       renderer.setSize(rect.width, rect.height);
       uniforms.iResolution.value = [gl.drawingBufferWidth, gl.drawingBufferHeight, 1];
 
-      if (blindMinWidth && blindMinWidth > 0) {
-        const maxByMinWidth = Math.max(1, Math.floor(rect.width / blindMinWidth));
+      const minW = blindMinWidthRef.current;
+      const bCount = blindCountRef.current;
 
-        const effective = blindCount ? Math.min(blindCount, maxByMinWidth) : maxByMinWidth;
+      if (minW && minW > 0) {
+        const maxByMinWidth = Math.max(1, Math.floor(rect.width / minW));
+
+        const effective = bCount ? Math.min(bCount, maxByMinWidth) : maxByMinWidth;
         uniforms.uBlindCount.value = Math.max(1, effective);
       } else {
-        uniforms.uBlindCount.value = Math.max(1, blindCount);
+        uniforms.uBlindCount.value = Math.max(1, bCount);
       }
 
       if (firstResizeRef.current) {
@@ -302,7 +312,7 @@ void main() {
       const x = (e.clientX - rect.left) * scale;
       const y = (rect.height - (e.clientY - rect.top)) * scale;
       mouseTargetRef.current = [x, y];
-      if (mouseDampening <= 0) {
+      if (mouseDampeningRef.current <= 0) {
         uniforms.iMouse.value = [x, y];
       }
     };
@@ -329,11 +339,12 @@ void main() {
         }
       }
 
-      if (mouseDampening > 0) {
+      const damp = mouseDampeningRef.current;
+      if (damp > 0) {
         if (!lastTimeRef.current) lastTimeRef.current = t;
         const dt = (t - lastTimeRef.current) / 1000;
         lastTimeRef.current = t;
-        const _tau = Math.max(1e-4, mouseDampening);
+        const _tau = Math.max(1e-4, damp);
         let factor = 1 - Math.exp(-dt / _tau);
         if (factor > 1) factor = 1;
         const target = mouseTargetRef.current;

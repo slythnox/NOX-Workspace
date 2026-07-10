@@ -2,23 +2,22 @@
 
 <br />
 
-<img src="public/logo.png" width="96" alt="Onyx Tools" />
+<img src="public/logo.png" width="112" alt="Onyx Logo" />
 
 <br />
-<br />
 
-# Onyx Tools
+# Onyx
 
 **Developer Workspace**
 
-A browser-based collection of professional developer tools for building, designing, generating, and exporting assets — entirely client-side.
+A browser-based collection of professional developer tools for building, designing, generating, and exporting assets — running entirely client-side.
 
 <br />
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-white?style=flat-square)](LICENSE)
 [![React](https://img.shields.io/badge/React-18.3-61dafb?style=flat-square&logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Vite](https://img.shields.io/badge/Vite-5.4-646cff?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Vite](https://img.shields.io/badge/Vite-5.4-646cff?style=flat-square&logo=vite&logoColor=white)](https://vite.dev)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/slythnox/Onyx-Tools/pulls)
 
@@ -34,33 +33,41 @@ A browser-based collection of professional developer tools for building, designi
 
 ## Overview
 
-Onyx Tools is a self-contained developer workspace that runs entirely in the browser.
+Onyx is a self-contained, client-side developer workspace. It consolidates precision visual editors, generators, and code component catalogs into a single fast, privacy-first interface. 
 
-No accounts. No uploads. No external APIs. No tracking.
-
-The project exists because developers routinely visit five or six separate websites to do things that belong in one place — screenshot their code, export an icon, generate a color palette, preview a background shader. Onyx Tools consolidates all of that into a single, fast, privacy-first workspace.
-
-Everything is client-side rendered. Everything is exportable. Everything is open source.
+Onyx eliminates the need to visit multiple ad-hoc websites for everyday assets. Everything is rendered directly in your browser, everything is exportable, and no data ever leaves your computer.
 
 ---
 
-## Tools
+## Tool Gallery
 
-Onyx Tools ships seven production-ready studios. Each tool operates independently and can export assets directly from the browser.
+Onyx ships seven production-grade studios. Each module operates independently and supports high-resolution asset export directly from the browser.
 
-| Tool | Description | Category | Shortcut |
+| Studio | Description | Category | Shortcut |
 |---|---|---|---|
-| **Code Snippets** | Generate beautiful high-retina code screenshots with IDE themes, gradient layouts, and Mac-style window chrome. Export as PNG. | Developer | `S` |
-| **Device Studio** | Present screenshots inside realistic device mockups (laptops, phones, monitors) with custom layout snap-guides, rotation, and high-res exports. | Design | `V` |
-| **Icon Studio** | Search, customize, and export 1,400+ Lucide icons. Adjust stroke, size, and color. Export as SVG, PNG, or JSX. | Design | `I` |
-| **OKLCH Generator** | Construct perceptually-uniform color systems using the OKLCH color space. Generate semantic token scales for dark and light modes. | Color | `C` |
-| **Background Studio** | Design and export animated WebGL and CSS backgrounds. Seven visual presets with full parameter control. Export as React component, Tailwind, HTML/CSS. | Design | `B` |
-| **Text Animations** | Preview, customize, and export high-performance React text animation components. Multiple animation patterns with live controls. | Design | `T` |
-| **Components** | Preview, configure, and export interactive React UI components. Live parameter panel with source code and CSS export. | Design | `D` |
+| **Code Snippets** | Generate clean code screenshots with customized window frame chrome and IDE syntax themes. | Developer | `S` |
+| **Device Studio** | Render screenshots inside realistic device mockups (MacBook, iPhone, iPad) with grid alignments. | Design | `V` |
+| **Icon Studio** | Customize and export 1,400+ Lucide icons as PNG, SVG, or React JSX. | Design | `I` |
+| **OKLCH Generator** | Construct perceptually-uniform color systems with WCAG contrast verification. | Color | `C` |
+| **Background Studio** | Design and export animated WebGL and CSS backgrounds. | Design | `B` |
+| **Text Animations** | Customize and copy-paste interactive, high-performance React text animators. | Design | `T` |
+| **Components** | Configure and export motion-powered UI elements (Dock, Bento Grid, Magnet). | Design | `D` |
+
+---
+
+## Key Features
+
+- **Privacy First**: Zero API calls, zero analytics servers, zero accounts.
+- **Precision Customization**: Dynamic control panels for real-time visual tweaking.
+- **Copy-Paste Integration**: Production-ready code blocks and CSS variables instantly available for export.
+- **Retina Exporting**: High-resolution image generation matching high-DPI displays.
+- **Single-Page Shortcuts**: Keyboard navigation mapped globally for fast switching between studios.
 
 ---
 
 ## Architecture
+
+Onyx is built using a decentralized, lazy-loaded modular architecture. The core application shell remains light, while heavy features load only on demand.
 
 ### Application Flow
 
@@ -80,187 +87,111 @@ graph TD
     J -->|SVG/JSX| M[Clipboard API]
 ```
 
-### Module Registry
-
-```mermaid
-graph LR
-    R[registry/tools.ts] --> S[Code Snippets]
-    R --> DS[Device Studio]
-    R --> IC[Icon Studio]
-    R --> C[OKLCH Generator]
-    R --> B[Background Studio]
-    R --> T[Text Animations]
-    R --> CO[Components]
-    S --> |React.lazy| SB[snippets bundle]
-    DS --> |React.lazy| DSB[device-studio bundle]
-    IC --> |React.lazy| IB[icons bundle]
-    C --> |React.lazy| CB[colors bundle]
-    B --> |React.lazy| BB[backgrounds bundle]
-    T --> |React.lazy| TB[text-animations bundle]
-    CO --> |React.lazy| COB[components bundle]
-```
-
-### Project Structure
+### Folder Structure
 
 ```
-onyx-tools/
+onyx/
 ├── app/
-│   ├── layouts/          # AppLayout — persistent shell, nav, footer
-│   ├── providers/        # App-level context providers
-│   └── routes/
-│       ├── landing.tsx   # Home page with hero and tool grid
-│       ├── tool-wrapper.tsx  # Shared wrapper for all tool modules
-│       └── docs.tsx      # Documentation page
+│   ├── layouts/          # Persistent application layouts and header shell
+│   ├── providers/        # Global providers (Toasts, notification hubs)
+│   └── routes/           # Core route views (Landing, Wrapper, Docs)
 │
 ├── components/
-│   └── ui/               # Reusable primitives (Button, Input, Select…)
-│                         # Production UI components (Dock, Magnet, MagicBento…)
+│   ├── command-palette/  # Global command search menu
+│   ├── layout/           # Shared layout wrappers
+│   └── ui/               # Animation presets and motion components
 │
 ├── modules/
-│   ├── snippets/         # Code Snippets studio
-│   ├── icons/            # Icon Studio
-│   ├── colors/           # OKLCH Generator
-│   ├── background-studio/  # Background Studio (WebGL shaders)
-│   ├── text-animations/  # Text Animations studio
-│   └── components/       # Components catalog
+│   ├── background-studio/# WebGL shaders and canvas builders
+│   ├── colors/           # OKLCH generator and scale tools
+│   ├── components/       # Component preview workspace
+│   ├── device-studio/    # Screenshot mockup editor
+│   ├── icons/            # Lucide search and customizer
+│   ├── snippets/         # Carbon-like code screenshot studio
+│   └── text-animations/  # Text motion catalog
 │
 ├── registry/
-│   └── tools.ts          # Central tool metadata registry
+│   └── tools.ts          # Central metadata registry and routes loader
 │
-├── lib/                  # Shared utilities (cn, syntax highlighter…)
-├── styles/               # Global CSS, design tokens
-├── types/                # Shared TypeScript type definitions
-├── public/               # Static assets
-└── vite.config.ts        # Build configuration
+├── lib/                  # Shared core utilities (Export engines, class merges)
+├── styles/               # Global styling directives and theme variables
+└── public/               # Mockups, previews, and logo assets
 ```
 
 ---
 
-## Technology Stack
+## Tech Stack
 
-| Layer | Technology | Version | Purpose |
-|---|---|---|---|
-| Framework | React | 18.3 | Component model and rendering |
-| Language | TypeScript | 5.5 | Type safety across all modules |
-| Bundler | Vite | 5.4 | Dev server, production builds, code splitting |
-| Styling | Tailwind CSS | 3.4 | Utility-first layout and design system |
-| Routing | React Router | 7 | Client-side SPA navigation |
-| 3D / WebGL | Three.js + React Three Fiber | 0.180 | Hardware-accelerated background shaders |
-| WebGL (lightweight) | OGL | 1.0 | Minimal WebGL renderer for custom shaders |
-| Animation | GSAP | 3.15 | Timeline-based component animations |
-| Animation | Framer Motion / Motion | 12 | Declarative React transitions |
-| Scroll | Lenis | 1.3 | Smooth scroll engine for ScrollStack |
-| Icons | Lucide React | 0.344 | 1,400+ vector icons |
-| Image Export | html-to-image | 1.11 | DOM-to-PNG rendering pipeline |
-| Compression | JSZip | 3.10 | Multi-asset ZIP packaging |
+- **Framework**: React 18.3 (Component modeling and rendering)
+- **Language**: TypeScript 5.5 (Strict typing and compile safety)
+- **Bundler**: Vite 5.4 (Splitting, bundling, and local development)
+- **Styling**: Tailwind CSS 3.4 (Design tokens and layouts)
+- **3D / WebGL**: Three.js & OGL (Hardware-accelerated shader rendering)
+- **Animation**: GSAP & Framer Motion (Interpolations and transitions)
+- **Exporting**: html-to-image & JSZip (DOM capture and packaging)
 
 ---
 
-## Installation
+## Getting Started
 
-**Requirements:** Node.js ≥ 18
+### Prerequisites
+
+Onyx requires **Node.js ≥ 18** and **npm** or another modern package manager.
+
+### Installation
 
 ```bash
-# Clone
+# Clone the repository
 git clone https://github.com/slythnox/Onyx-Tools.git
 cd Onyx-Tools
 
 # Install dependencies
 npm install
 
-# Start the development server
+# Start the local development server
 npm run dev
 ```
 
+### Quality Assurance
+
 ```bash
-# Type check (zero errors expected)
+# Verify TypeScript compile safety
 npm run type-check
 
-# Lint
+# Run ESLint validation
 npm run lint
 
-# Production build
+# Compile and minify for production
 npm run build
 
-# Preview production build locally
+# Preview the local production build
 npm run preview
 ```
 
-The dev server starts at `http://localhost:5173` by default.
-
 ---
 
-## Design Philosophy
+## Design & Performance Guidelines
 
-**Performance by default.** Tool modules load lazily. Bundles are split per route. WebGL contexts are reused. Animation frames are throttled. The goal is that heavy tools feel light.
-
-**No abstractions without purpose.** The codebase avoids framework layers and wrapper patterns unless they solve a concrete problem. The tool registry is a flat array. Routes are a switch statement. Exports are direct DOM operations.
-
-**Modularity.** Adding a new tool means adding an entry to `registry/tools.ts` and creating a module folder. Nothing else changes. The shell, navigation, and export engine are shared infrastructure.
-
-**Developer experience.** Every tool follows the same interaction model: left panel for controls, right panel for preview, top bar for export. Keyboard shortcuts work from the tools directory. Copy-paste code is always ready.
-
----
-
-## Performance
-
-| Concern | Approach |
-|---|---|
-| Initial load | Only the landing page and shell load on first visit |
-| Tool modules | Loaded via `React.lazy` on first navigation to each tool |
-| WebGL contexts | Created once per component, cleaned up on unmount |
-| Mouse tracking | Throttled inside `requestAnimationFrame` to prevent layout thrashing |
-| Scroll animation | Lenis instances are fully terminated on component unmount |
-| Export pipeline | DOM rendering via `html-to-image` runs off the main thread where possible |
-| Bundle size | Three.js is isolated to background modules; never loaded for non-WebGL tools |
+- **WebGL Conservation**: Shaders are created once per component lifecycle and properly torn down on unmount. Stretched WebGL contexts are avoided by updating shader uniforms live using mutable reference hooks rather than triggering full React re-renders.
+- **Zero-Dependency Core**: Layouts rely on CSS variables and native browser APIs where possible to minimize initial load time.
+- **FPS Stability**: Heavy render loops run off a throttled `requestAnimationFrame` listener and skip frames if browser performance degrades.
+- **Scroll Hijacking Mitigation**: Lenis smooth scroll listeners are isolated to the components that require them and are systematically terminated on page navigation.
 
 ---
 
 ## Contributing
 
-Contributions are welcome. Please read the following before opening a pull request.
+We appreciate and welcome contributions to Onyx.
 
-**Bug reports**
-
-Open an issue with a clear description of the problem, steps to reproduce, and your browser version.
-
-**Feature requests**
-
-Open an issue describing the feature, the use case it solves, and any relevant prior art.
-
-**Pull requests**
-
-```bash
-# Fork the repository, then:
-git checkout -b feature/your-feature-name
-
-# Make your changes
-# Run type check before committing
-npm run type-check
-npm run lint
-
-git commit -m "feat: describe your change clearly"
-git push origin feature/your-feature-name
-```
-
-Open a pull request against `main`. Include a clear description of what changed and why.
-
-For new tools, follow the existing module structure and register the tool in `registry/tools.ts`.
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/amazing-feature`).
+3. Validate that typescript type-checking and lints pass (`npm run type-check` && `npm run lint`).
+4. Commit your changes (`git commit -m 'feat: add support for custom device shapes'`).
+5. Push to the branch (`git push origin feature/amazing-feature`).
+6. Open a Pull Request.
 
 ---
 
 ## License
 
-MIT 
-
----
-
-<div align="center">
-
-Maintained by [slythnox](https://github.com/slythnox)
-
-<br />
-
-Built with [React](https://react.dev) · [Vite](https://vitejs.dev) · [Three.js](https://threejs.org) · [OGL](https://github.com/oframe/ogl) · [GSAP](https://gsap.com) · [Lucide](https://lucide.dev) · [ReactBits](https://reactbits.dev)
-
-</div>
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.

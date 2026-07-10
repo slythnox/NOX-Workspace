@@ -271,7 +271,7 @@ export default function FloatingLines({
   mixBlendMode = 'screen'
 }: FloatingLinesProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const uniformsRef = useRef<Record<string, { value: any }> | null>(null);
+  const uniformsRef = useRef<Record<string, { value: number | boolean | Vector2 | Vector3 | Vector3[] }> | null>(null);
   const mouseDampingRef = useRef(mouseDamping);
   const targetMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
   const currentMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
@@ -325,7 +325,7 @@ export default function FloatingLines({
     renderer.domElement.style.display = 'block';
     container.appendChild(renderer.domElement);
 
-    const uniforms: Record<string, { value: any }> = {
+    const uniforms: Record<string, { value: number | boolean | Vector2 | Vector3 | Vector3[] }> = {
       iTime:            { value: 0 },
       iResolution:      { value: new Vector3(1, 1, 1) },
       animationSpeed:   { value: animationSpeed },
